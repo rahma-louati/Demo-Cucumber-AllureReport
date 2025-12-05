@@ -106,9 +106,7 @@ allure open target/allure-report
 
 This project is licensed under the MIT License.
 
- ------
-
+----
 👩‍💻 Auteur Rahma Louati |Software QA Engineer – Test manuel & automatisé|
 
-```
-```
+--------
