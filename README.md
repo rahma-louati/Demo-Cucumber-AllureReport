@@ -56,6 +56,7 @@ selenium-cucumber-junit-pom-factory
 │
 │── pom.xml                                  # Maven dependencies
 │── README.md
+```
 ------------
 
 ---
