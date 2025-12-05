@@ -1,26 +1,32 @@
 
 # 🧪 Selenium WebDriver Automation Framework
 
-This project is a **test automation framework** built with:
-- [Selenium WebDriver](https://www.selenium.dev/)
-- [Cucumber](https://cucumber.io/) (BDD)
-- [JUnit](https://junit.org/)
-- **Page Object Model (POM)** design pattern
-- **Factory Design Pattern** for browser management
 
-The goal of this framework is to provide a scalable, maintainable, and easy-to-use structure for end-to-end UI test automation.
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Maven](https://img.shields.io/badge/Maven-3.9.0-green)
+![Selenium](https://img.shields.io/badge/Selenium-4.15.0-orange)
+![Eclipse](https://img.shields.io/badge/Eclipse-IDE-purple)
+
 
 ---
+Ce projet est un framework d’automatisation de tests basé sur :
 
-## 🚀 Features
+- **Selenium WebDriver**
+- **Cucumber (BDD)**
+- **JUnit 5**
+- **Page Object Model (POM)**
+- **Factory Pattern**
+- **Allure Report** (Rapports avancés)
+-----
 
-- Cross-browser execution (Chrome, Firefox, Edge) via **Factory Pattern**.
-- Test scenarios written in **Gherkin** syntax for readability.
-- Structured with **Page Object Model** for reusability and maintainability.
-- Test execution and reporting with **JUnit**.
-- Easily extendable for additional browsers and environments.
-- Logging support for better traceability.
+# 🚀 Features
 
+- Exécution cross-browser (Chrome, Firefox, Edge)
+- Scénarios lisibles en Gherkin
+- Pages structurées en POM
+- Gestion centralisée du WebDriver via Factory Pattern
+- Rapports détaillés avec Allure (screenshots, logs, steps)
+- Architecture claire et scalable
 ---
 
 ## 🏗️ Project Structure
@@ -52,34 +58,94 @@ selenium-cucumber-junit-pom-factory
 │── README.md
 
 ````
+----
+# 📊 Allure Report Integration
+
+Ce framework inclut **Allure Report** pour générer des rapports professionnels :
+
+- Graphiques interactifs  
+- Timeline d’exécution  
+- Screenshots automatiques en cas d’échec  
+- Détails par step Gherkin  
+- Attachments & logs  
 
 ---
 
-## ⚙️ Prerequisites
+# 📦 Installation — Ajouter Allure dans `pom.xml`
 
-- **Java 11+**
-- **Maven 3.6+**
-- Browser drivers (e.g. ChromeDriver, GeckoDriver, EdgeDriver)
-- IDE (IntelliJ, Eclipse, or VS Code with Java support)
+```xml
+<!-- Allure Cucumber JVM -->
+<dependency>
+    <groupId>io.qameta.allure</groupId>
+    <artifactId>allure-cucumber7-jvm</artifactId>
+    <version>2.24.0</version>
+</dependency>
+
+<!-- Allure JUnit 5 -->
+<dependency>
+    <groupId>io.qameta.allure</groupId>
+    <artifactId>allure-junit5</artifactId>
+    <version>2.24.0</version>
+</dependency>
+---
+
+## 🏃 Test Runner
+
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+		
+		features = {"src/spec/features"},
+		plugin = {"pretty","io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
+		//glue = {"/selenuim-cucumber/src/test/java/com/automation/e2eTests/stepDefinitions"},
+		tags = ("@loginOutline"),
+		monochrome = true,
+		snippets = CAMELCASE		
+		)
+
+
+public class RunWebSuiteTest {
+} 
+----
+🧩 Hooks – Screenshot automatique (Allure)
+
+package stepDefinitions;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import factory.BrowserFactory;
+
+public class Hooks {
+
+    public static WebDriver driver;
+
+    @Before
+    public void setUp() {
+        driver = BrowserFactory.getDriver(System.getProperty("browser", "chrome"));
+    }
+
+    @After
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", "Screenshot Failure");
+        }
+        driver.quit();
+    }
+}
+----
 
 ---
 
-## 📦 Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/your-username/selenium-cucumber-junit-pom-factory.git
-cd selenium-cucumber-junit-pom-factory
-````
-
-Install dependencies:
-
-```bash
-mvn clean install
-```
-
----
 
 ## ▶️ Running Tests
 
@@ -88,82 +154,29 @@ Run all tests with default browser (Chrome):
 ```bash
 mvn test
 ```
+------------
+##  📊 Génération du rapport Allure
 
-Run tests with a specific browser:
-
+ Générer le rapport :
 ```bash
-mvn test -Dbrowser=firefox
-mvn test -Dbrowser=edge
+allure generate target/allure-results -o target/allure-report --clean
 ```
+Ouvrir le rapport Allure :
+```bash
+allure open target/allure-report
 
----
-
-## 🧩 Example Usage
-
-### Feature File (`login.feature`)
-
-```gherkin
-Feature: Login functionality
-
-  Scenario: Successful login
-    Given I am on the login page
-    When I enter valid credentials
-    And I click on the login button
-    Then I should see the dashboard
 ```
-
-### Step Definition (`LoginSteps.java`)
-
-```java
-@Given("I am on the login page")
-public void i_am_on_the_login_page() {
-    driver.get("https://example.com/login");
-    loginPage = new LoginPage(driver);
-}
-```
-
----
-
-## 🏗️ Design Patterns Used
-
-### Page Object Model (POM)
-
-* Each page of the application has a dedicated Java class.
-* Encapsulates elements and actions to promote reusability.
-* Example: `LoginPage.java`
-
-### Factory Design Pattern
-
-* Centralized **BrowserFactory** to manage different WebDriver instances.
-* Makes it easy to switch browsers without modifying test logic.
-* Example:
-
-  ```java
-  WebDriver driver = BrowserFactory.getDriver("chrome");
-  ```
-
----
-
-## 📊 Reporting
-
-JUnit generates test results automatically.
-You can also integrate with **Allure Reports** or **Extent Reports** for enhanced visualization.
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -m "Add new feature"`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
-
----
 
 ## 📜 License
 
 This project is licensed under the MIT License.
+
+
+--
+
+ ------
+
+👩‍💻 Auteur Rahma Louati |Software QA Engineer – Test manuel & automatisé|
 
 ```
 ```
