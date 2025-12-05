@@ -56,6 +56,7 @@ selenium-cucumber-junit-pom-factory
 │
 │── pom.xml                                  # Maven dependencies
 │── README.md
+------------
 
 # 📊 Allure Report Integration
 
@@ -85,7 +86,7 @@ Ce framework inclut **Allure Report** pour générer des rapports professionnels
     <artifactId>allure-junit5</artifactId>
     <version>2.24.0</version>
 </dependency>
-
+---
 ------------
 ##  📊 Génération du rapport Allure
 
@@ -98,7 +99,7 @@ Ouvrir le rapport Allure :
 allure open target/allure-report
 
 ```
-
+------------
 ## 📜 License
 
 This project is licensed under the MIT License.
