@@ -90,7 +90,8 @@ Ce framework inclut **Allure Report** pour générer des rapports professionnels
 ---
 
 ## 🏃 Test Runner
-<pre>
+
+```java
 import org.junit.runner.RunWith;
 
 import io.cucumber.junit.Cucumber;
@@ -99,21 +100,20 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		
-		features = {"src/spec/features"},
-		plugin = {"pretty","io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
-		//glue = {"/selenuim-cucumber/src/test/java/com/automation/e2eTests/stepDefinitions"},
-		tags = ("@loginOutline"),
-		monochrome = true,
-		snippets = CAMELCASE		
-		)
-
+    features = {"src/spec/features"},
+    plugin = {"pretty","io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
+    //glue = {"/selenium-cucumber/src/test/java/com/automation/e2eTests/stepDefinitions"},
+    tags = ("@loginOutline"),
+    monochrome = true,
+    snippets = CAMELCASE
+)
 public class RunWebSuiteTest {
 }
-</pre>
+
 ----
-##🧩 Hooks – Screenshot automatique (Allure)
-<pre>
+## 🧩 Hooks – Screenshot automatique (Allure)
+
+```java
 package stepDefinitions;
 
 import io.cucumber.java.After;
@@ -142,8 +142,6 @@ public class Hooks {
         driver.quit();
     }
 }
-</pre>
-
 
 ---
 
