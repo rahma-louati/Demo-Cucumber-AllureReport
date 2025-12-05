@@ -58,6 +58,8 @@ selenium-cucumber-junit-pom-factory
 │── README.md
 ------------
 
+---
+
 # 📊 Allure Report Integration
 
 Ce framework inclut **Allure Report** pour générer des rapports professionnels :
@@ -86,7 +88,7 @@ Ce framework inclut **Allure Report** pour générer des rapports professionnels
     <artifactId>allure-junit5</artifactId>
     <version>2.24.0</version>
 </dependency>
----
+------------------------
 ------------
 ##  📊 Génération du rapport Allure
 
