@@ -93,7 +93,6 @@ Ce framework inclut **Allure Report** pour générer des rapports professionnels
 
 ```java
 import org.junit.runner.RunWith;
-
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
@@ -109,7 +108,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 )
 public class RunWebSuiteTest {
 }
-
+---------------------
 ----
 ## 🧩 Hooks – Screenshot automatique (Allure)
 
@@ -144,7 +143,7 @@ public class Hooks {
 }
 
 ---
-
+--------------------
 ## ▶️ Running Tests
 
 Run all tests with default browser (Chrome):
