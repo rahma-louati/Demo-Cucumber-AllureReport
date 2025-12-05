@@ -90,7 +90,7 @@ Ce framework inclut **Allure Report** pour générer des rapports professionnels
 ---
 
 ## 🏃 Test Runner
-
+<pre>
 import org.junit.runner.RunWith;
 
 import io.cucumber.junit.Cucumber;
@@ -108,12 +108,12 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 		snippets = CAMELCASE		
 		)
 
-
 public class RunWebSuiteTest {
-} 
+}
+</pre>
 ----
-🧩 Hooks – Screenshot automatique (Allure)
-
+##🧩 Hooks – Screenshot automatique (Allure)
+<pre>
 package stepDefinitions;
 
 import io.cucumber.java.After;
@@ -142,10 +142,10 @@ public class Hooks {
         driver.quit();
     }
 }
-----
+</pre>
+
 
 ---
-
 
 ## ▶️ Running Tests
 
@@ -170,9 +170,6 @@ allure open target/allure-report
 ## 📜 License
 
 This project is licensed under the MIT License.
-
-
---
 
  ------
 
